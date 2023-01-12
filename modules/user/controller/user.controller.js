@@ -1,5 +1,7 @@
 const  { userModel } =require ('../../../DB/model/user.model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 
 //signup
 const signup =async (req, res) => {
@@ -28,5 +30,40 @@ const signup =async (req, res) => {
 }
 }
 
+//signin
+const signin = async (req, res) => {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({email:email})
 
-module.exports = { signup };
+    if (!user) {
+        res.json(" invalid email ")
+    }
+    else {
+        const match = await bcrypt.compare(password, user.password);
+        if (match) {
+            const token = jwt.sign({ id: user._id }, 'sahartoken');
+            res.json({message:"login successfully", token})
+        }
+        else {
+            res.json(" invalid data ")
+}
+    }
+}
+
+//update user by id 
+const updateUser = async (req, res) => {
+    const { id } = req.params;
+    const { firstname, lastname, email, age, password } = req.body;
+
+    const user = await userModel.findByIdAndUpdate(
+        id,
+        { firstname, lastname, email, age, password },
+        {new:true}
+    )
+    res.json({message :"updated successfully ", user})
+}
+
+
+
+
+module.exports = { signup,signin,updateUser };
