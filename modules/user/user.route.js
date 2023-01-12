@@ -1,5 +1,5 @@
 const  { userModel } =require ('../../DB/model/user.model');
-const { signup,signin,updateUser,getUser,getUserDataAgeLessThan30 } =require ('./controller/user.controller');
+const { signup,signin,updateUser,getUser,getUserDataAgeLessThan30,getUsersNameContainA } =require ('./controller/user.controller');
 
 const router = require("express").Router();
 router.get("/", (req, res) => {
@@ -11,6 +11,7 @@ router.get('/signin', signin);
 router.put('/updateUser/:id', updateUser);
 router.get('/getUser/:id', getUser);
 router.get('/getUserDataAgeLessThan30', getUserDataAgeLessThan30);
+router.get('/getUsersNameContainA', getUsersNameContainA);
 
 
 module.exports = router;
