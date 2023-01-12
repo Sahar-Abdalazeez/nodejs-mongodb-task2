@@ -89,5 +89,17 @@ const getUserDataAgeLessThan30 =async (req, res) => {
         res.json({message:" no user found with age less than30 "})
     }
 }
+//Get all users which their first name or last name contain a 
+const getUsersNameContainA =async (req, res) => {
+const users = await userModel. find({$or:[{"firstname": { $regex: /a/i }}, {"lastname": { $regex: /a/i }}]})
+   
+    if (users) {
+            res.json({message:" users firstname contain a letter", users})
 
-module.exports = { signup,signin,updateUser,getUser,getUserDataAgeLessThan30 };
+    }
+    else {
+        res.json({message:" no user found"})
+    }
+}
+
+module.exports = { signup,signin,updateUser,getUser,getUserDataAgeLessThan30,getUsersNameContainA };
