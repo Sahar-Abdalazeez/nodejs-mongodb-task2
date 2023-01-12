@@ -78,4 +78,16 @@ const getUser = async(req,res)=> {
     }
 }
 
-module.exports = { signup,signin,updateUser,getUser };
+//users with age less than 30
+const getUserDataAgeLessThan30 =async (req, res) => {
+    const users = await userModel.find({ age: { $lt: 30 } });
+    if (users) {
+            res.json({message:" users age less than 30", users})
+
+    }
+    else {
+        res.json({message:" no user found with age less than30 "})
+    }
+}
+
+module.exports = { signup,signin,updateUser,getUser,getUserDataAgeLessThan30 };
