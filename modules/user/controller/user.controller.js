@@ -63,7 +63,19 @@ const updateUser = async (req, res) => {
     res.json({message :"updated successfully ", user})
 }
 
+//get user by id 
+const getUser = async(req,res)=> {
+    const { id } = req.params;
 
+    const user = await userModel.findById(
+        id,
+    );
+    if (user) {
+        res.json ({message:'user found ', user})
+    }
+    else {
+        res.json({message: 'user not found '})
+    }
+}
 
-
-module.exports = { signup,signin,updateUser };
+module.exports = { signup,signin,updateUser,getUser };

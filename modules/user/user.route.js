@@ -1,5 +1,5 @@
 const  { userModel } =require ('../../DB/model/user.model');
-const { signup,signin,updateUser } =require ('./controller/user.controller');
+const { signup,signin,updateUser,getUser } =require ('./controller/user.controller');
 
 const router = require("express").Router();
 router.get("/", (req, res) => {
@@ -10,5 +10,6 @@ router.get("/", (req, res) => {
 router.post('/signup', signup);
 router.get('/signin', signin);
 router.put('/updateUser/:id', updateUser);
+router.get('/getUser/:id', getUser);
 
 module.exports = router;
